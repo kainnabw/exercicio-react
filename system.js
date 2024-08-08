@@ -3,13 +3,14 @@ import { View, Text, Button, StyleSheet, TextInput, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ArmazenarDados = () => {
-  const [dados, setDados] = useState('faça login');
-  const [senha, setSenha] = useState('');
+  const [dados, setDados] = useState('faça login'); 
+  const [input, setInput] = useState(''); 
 
   const salvarDados = async () => {
     try {
-      await AsyncStorage.setItem('usuario', dados);
-      setDados(dados);
+      
+      await AsyncStorage.setItem('usuario', input);
+      setDados(input); 
       Alert.alert('Sucesso', 'Usuário salvo com sucesso!');
     } catch (erro) {
       console.error('Erro ao salvar o usuário:', erro);
@@ -18,19 +19,20 @@ const ArmazenarDados = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.titulo}>login</Text>
+
       <Text style={styles.texto}>{dados}</Text>
+
       <TextInput
         style={styles.input}
         placeholder="Usuário"
-        value={dados}
-        onChangeText={setDados}
+        value={input} 
+        onChangeText={setInput} 
       />
       <TextInput
         secureTextEntry={true}
         style={styles.input}
         placeholder="Senha"
-        value={senha}
-        onChangeText={setSenha}
       />
       <Button title="Confirmar" onPress={salvarDados} />
     </View>
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    width: '80%',
   },
   input: {
     width: '100%',
@@ -55,6 +57,10 @@ const styles = StyleSheet.create({
   texto: {
     marginTop: 20,
     fontSize: 18,
+    color: 'green',
+  },
+  titulo: {
+    fontSize: 30,
   },
 });
 
